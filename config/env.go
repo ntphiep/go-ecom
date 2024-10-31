@@ -2,6 +2,7 @@ package config
 
 import (
   "os"
+  "fmt"
 )
 
 type Config struct {
@@ -20,7 +21,7 @@ var Envs = initConfig()
 func initConfig() Config{
   
   return Config{
-    PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
+    PublicHost:             getEnv("PUBLIC_HOST", "http://localhost"),
     Port:                   getEnv("PORT", "8080"),
 		DBUser:                 getEnv("DB_USER", "root"),
 		DBPassword:             getEnv("DB_PASSWORD", "mypassword"),
@@ -32,7 +33,7 @@ func initConfig() Config{
 }
 
 func getEnv(key, fallback string) string {
-  if value, ok = os.LookUpEnv(key); ok {
+  if value, ok := os.LookUpEnvs(key); ok {
     return value
   }
 
