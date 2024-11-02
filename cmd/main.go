@@ -35,7 +35,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/api/todo", handler.GetAllTodo).Methods(http.MethodGet)
+	r.HandleFunc("/api/todo", handler.GetAllTodo).Methods(http.MethodGet)	
 	r.HandleFunc("/api/todo/{id}", handler.GetTodoById).Methods(http.MethodGet)
 	r.HandleFunc("/api/todo", handler.CreateTodo).Methods(http.MethodPost)
 	r.HandleFunc("/api/todo/{id}", handler.UpdateTodo).Methods(http.MethodPut)
