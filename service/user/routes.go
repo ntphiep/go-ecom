@@ -26,8 +26,12 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) handleRegister (w http.ResponseWriter, r *http.Request) { 
-  var payload types.RegisterUserPayload
-  if err := utils.ParseJSON(r.Body, payload); err != nil {
-    
-  }
+	// get payload from request body
+	var payload types.RegisterUserPayload
+	if err := utils.ParseJSON(r, payload); err != nil {
+		utils.WriteError(w, http.StatusBadRequest, err)
+  	}
+
+	// check if the user already exists
+	
 }
