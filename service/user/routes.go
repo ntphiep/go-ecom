@@ -1,9 +1,7 @@
 package user
 
 import (
-	"encoding/json"
 	"fmt"
-	"hash"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -21,22 +19,22 @@ func NewHandler(store types.UserStore) *Handler {
 		store: store,
 	}
 }
-          
+
 func (h *Handler) RegisterRoutes(router *mux.Router) {
-  router.HandleFunc("/login", h.handleLogin).Methods("POST")
-  router.HandleFunc("/register", h.handleRegister).Methods("POST")
+	router.HandleFunc("/login", h.handleLogin).Methods("POST")
+	router.HandleFunc("/register", h.handleRegister).Methods("POST")
 }
 
 func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) { 
+func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 	// get payload from request body
 	var payload types.RegisterUserPayload
 	if err := utils.ParseJSON(r, payload); err != nil {
 		utils.WriteError(w, http.StatusBadRequest, err)
-  	}
+	}
 
 	// check if the user already exists
 	_, err := h.store.GetUserByEmail(payload.Email)
@@ -57,7 +55,6 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		LastName:  payload.LastName,
 		Email:     payload.Email,
 		Password:  hashedPassword,
-		
 	})
 
 	if err != nil {
